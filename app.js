@@ -2,10 +2,10 @@
 import { getRandomItem } from './utils.js';
 
 /* State */
-let gameState = 'guess';
-let guess = '';
-let answer = '';
-let result = '';
+let gameState = 'results'; //'guess', 'results'
+let guess = ''; //'shell-1','shell-2','shell-3'
+let answers = ''; //'shell-1','shell-2','shell-3'
+let result = ''; //'win' or 'lose'
 
 /* Actions */
 function loadPage() {
@@ -34,6 +34,8 @@ const display1 = document.getElementById('display-1');
 const display2 = document.getElementById('display-2');
 const display3 = document.getElementById('display-3');
 
+const playAgainButton = document.getElementById('play-again-button');
+
 // display
 
 function displayShells() {
@@ -47,6 +49,16 @@ function displayShells() {
         display1.classList.add('hidden');
         display2.classList.add('hidden');
         display3.classList.add('hidden');
+        playAgainButton.classList.add('hidden');
+    }
+
+    if (gameState === 'results') {
+        guess1.classList.add('hidden');
+        guess2.classList.add('hidden');
+        guess3.classList.add('hidden');
+        pearl1.classList.remove('hidden');
+        pearl2.classList.remove('hidden');
+        pearl3.classList.remove('hidden');
     }
 }
 // event listeners
