@@ -2,18 +2,44 @@
 import { getRandomItem } from './utils.js';
 
 /* State */
-let gameState = 'results'; //'guess', 'results'
-let guess = ''; //'shell-1','shell-2','shell-3'
-let answers = ''; //'shell-1','shell-2','shell-3'
+let gameState = 'guess'; //'guess', 'results'
+let userGuess = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
+let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
 let result = ''; //'win' or 'lose'
+
+let wins = 0;
+let losses = 0; 
+
+// probability array
+const underShell = ['shell1','shell2', 'shell3'] //or should it be 'pearl1','pearl2','pearl3'?
 
 /* Actions */
 function loadPage() {
     displayShells();
-    // displayResults();
-    // displayScoreboard();
+    displayResults();
+    displayScoreboard();
+
+function revealPearl(userGuess) {
+    gameState = 'results';
+    guess = 'userGuess';
+    flip = getRandomItem(underShell);
+
+
+    if (userGuess === flip) {
+        result = 'win';
+        wins++;
+    } else {
+        results = 'lose';
+        losses++;
+
+    }
+    loadPage ();
 }
 
+function playAgain() {
+    gameState = 'guess';
+    loadPage();
+}
 /* Components */
 
 /* Component */
@@ -61,7 +87,32 @@ function displayShells() {
         pearl3.classList.remove('hidden');
     }
 }
+
 // event listeners
 
-/* Run page load code */
-loadPage();
+guess1.addEventListener('click',() => {
+    revealPearl('guess1');
+});
+
+guess2.addEventListener('click',() => {
+    revealPearl('guess2');
+});
+
+guess3.addEventListener('click',() => {
+    revealPearl('guess3');
+});
+
+const resultsSection = document.getElementById('results');
+
+function displayResults() {
+    if (gameState === 'results') {
+        resultsSection.classList.remove('hidden');
+        //ADD RESULTS display (reveal pearl & text)
+    } else {
+        resultsSection.classList.add('hidden');
+    }
+}
+
+playAgainButton.addEventListener('click', () => {
+    playAgain();
+});
