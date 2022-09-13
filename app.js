@@ -8,32 +8,31 @@ let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl
 let result = ''; //'win' or 'lose'
 
 let wins = 0;
-let losses = 0; 
+let losses = 0;
 
 // probability array
-const underShell = ['shell1','shell2', 'shell3'] //or should it be 'pearl1','pearl2','pearl3'?
+const underShell = ['shell1', 'shell2', 'shell3']; //or should it be 'pearl1','pearl2','pearl3'?
 
 /* Actions */
 function loadPage() {
     displayShells();
     displayResults();
-    displayScoreboard();
-
+    // displayScoreboard();
+}
 function revealPearl(userGuess) {
     gameState = 'results';
     guess = 'userGuess';
     flip = getRandomItem(underShell);
 
-
     if (userGuess === flip) {
         result = 'win';
         wins++;
+        p;
     } else {
         results = 'lose';
         losses++;
-
     }
-    loadPage ();
+    loadPage();
 }
 
 function playAgain() {
@@ -90,15 +89,15 @@ function displayShells() {
 
 // event listeners
 
-guess1.addEventListener('click',() => {
+guess1.addEventListener('click', () => {
     revealPearl('guess1');
 });
 
-guess2.addEventListener('click',() => {
+guess2.addEventListener('click', () => {
     revealPearl('guess2');
 });
 
-guess3.addEventListener('click',() => {
+guess3.addEventListener('click', () => {
     revealPearl('guess3');
 });
 
