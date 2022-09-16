@@ -2,43 +2,38 @@
 import { getRandomItem } from './utils.js';
 
 /* State */
-let gameState = 'guess'; //'guess', 'results'
-let userGuess = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
-let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
-let result = ''; //'win' or 'lose'
+let gameState = ''; //'find', 'results'
+let userGuess = ''; // shell-1, shell2, shell3
+// let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
+// let result = ''; //'win' or 'lose'
 
-let wins = 0;
-let losses = 0;
+// let wins = 0;
+// let losses = 0;
 
 // probability array
-const underShell = ['shell1', 'shell2', 'shell3']; //or should it be 'pearl1','pearl2','pearl3'?
+// const underShell = ['pearl1', 'pearl2', 'pearl3']; //or should it be 'pearl1','pearl2','pearl3'?
 
 /* Actions */
 function loadPage() {
     displayShells();
-    displayResults();
+    // displayResults();
     // displayScoreboard();
 }
-function revealPearl(userGuess) {
-    gameState = 'results';
-    guess = 'userGuess';
-    flip = getRandomItem(underShell);
+// function revealPearl() {
+//     gameState = 'results';
+// userGuess = 'guess';
+//     flip = getRandomItem(underShell);
 
-    if (userGuess === flip) {
-        result = 'win';
-        wins++;
-        p;
-    } else {
-        results = 'lose';
-        losses++;
-    }
-    loadPage();
-}
+// if (userGuess === flip) {
+//     //     result = 'win';
+//     //     wins++;
+//     // } else {
+//     //     result = 'lose';
+//     //     losses++;
+//     // }
+//     loadPage();
+// }
 
-function playAgain() {
-    gameState = 'guess';
-    loadPage();
-}
 /* Components */
 
 /* Component */
@@ -64,7 +59,7 @@ const playAgainButton = document.getElementById('play-again-button');
 // display
 
 function displayShells() {
-    if (gameState === 'guess') {
+    if (gameState === 'find') {
         pearl1.classList.add('hidden');
         pearl2.classList.add('hidden');
         pearl3.classList.add('hidden');
@@ -81,37 +76,62 @@ function displayShells() {
         guess1.classList.add('hidden');
         guess2.classList.add('hidden');
         guess3.classList.add('hidden');
-        pearl1.classList.remove('hidden');
-        pearl2.classList.remove('hidden');
-        pearl3.classList.remove('hidden');
+        // pearl1.classList.remove('hidden');
+        // pearl2.classList.remove('hidden');
+        // pearl3.classList.remove('hidden');
     }
+    if (userGuess === 'shell1') {
+        shell1.classList.add('reveal');
+    }
+
+    if (userGuess === 'shell2') {
+        shell2.classList.add('reveal');
+    }
+
+    if (userGuess === 'shell3') {
+        shell3.classList.add('reveal');
+    }
+}
+
+function revealPearl() {
+    getRandomItem();
 }
 
 // event listeners
 
 guess1.addEventListener('click', () => {
-    revealPearl('guess1');
+    gameState = 'results';
+    userGuess = 'shell1';
+    displayShells();
+    revealPearl();
 });
 
 guess2.addEventListener('click', () => {
-    revealPearl('guess2');
+    gameState = 'results';
+    userGuess = 'shell2';
+    displayShells();
+    revealPearl();
 });
 
 guess3.addEventListener('click', () => {
-    revealPearl('guess3');
+    gameState = 'results';
+    userGuess = 'shell3';
+    displayShells();
+    revealPearl();
 });
 
-const resultsSection = document.getElementById('results');
+// const resultsSection = document.getElementById('results');
 
-function displayResults() {
-    if (gameState === 'results') {
-        resultsSection.classList.remove('hidden');
-        //ADD RESULTS display (reveal pearl & text)
-    } else {
-        resultsSection.classList.add('hidden');
-    }
-}
+// function displayResults() {
+//     if (gameState === 'results') {
+//         resultsSection.classList.remove('hidden');
+//         //ADD RESULTS display (reveal pearl & text)
+//     } else {
+//         resultsSection.classList.add('hidden');
+//     }
+// }
 
 playAgainButton.addEventListener('click', () => {
-    playAgain();
+    gameState = 'find';
+    loadPage();
 });
