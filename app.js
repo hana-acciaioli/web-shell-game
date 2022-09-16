@@ -1,43 +1,6 @@
 /* Imports */
 import { getRandomItem } from './utils.js';
 
-/* State */
-let gameState = ''; //'find', 'results'
-let userGuess = ''; // shell-1, shell2, shell3
-// let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
-// let result = ''; //'win' or 'lose'
-
-// let wins = 0;
-// let losses = 0;
-
-// probability array
-// const underShell = ['pearl1', 'pearl2', 'pearl3']; //or should it be 'pearl1','pearl2','pearl3'?
-
-/* Actions */
-function loadPage() {
-    displayShells();
-    // displayResults();
-    // displayScoreboard();
-}
-// function revealPearl() {
-//     gameState = 'results';
-// userGuess = 'guess';
-//     flip = getRandomItem(underShell);
-
-// if (userGuess === flip) {
-//     //     result = 'win';
-//     //     wins++;
-//     // } else {
-//     //     result = 'lose';
-//     //     losses++;
-//     // }
-//     loadPage();
-// }
-
-/* Components */
-
-/* Component */
-// get DOM
 const guess1 = document.getElementById('guess-1');
 const guess2 = document.getElementById('guess-2');
 const guess3 = document.getElementById('guess-3');
@@ -55,6 +18,43 @@ const display2 = document.getElementById('display-2');
 const display3 = document.getElementById('display-3');
 
 const playAgainButton = document.getElementById('play-again-button');
+/* State */
+let gameState = 'find'; //'find', 'results'
+let userGuess = ''; // shell-1, shell2, shell3
+let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
+// let result = ''; //'win' or 'lose'
+
+// let wins = 0;
+// let losses = 0;
+
+// probability array
+const underShell = [pearl1, pearl2, pearl3];
+
+/* Actions */
+function loadPage() {
+    displayShells();
+    // displayResults();
+    // displayScoreboard();
+}
+
+function revealPearl() {
+    gameState = 'results';
+    // userGuess = 'guess';
+    flip = getRandomItem(underShell);
+    console.log(flip);
+    flip.classList.remove('hidden');
+
+    // if (userGuess === flip) {
+    //     //     result = 'win';
+    //     //     wins++;
+    //     // } else {
+    //     //     result = 'lose';
+    //     //     losses++;
+    //     // }
+    loadPage();
+}
+
+/* Components */
 
 // display
 
@@ -76,25 +76,43 @@ function displayShells() {
         guess1.classList.add('hidden');
         guess2.classList.add('hidden');
         guess3.classList.add('hidden');
-        // pearl1.classList.remove('hidden');
-        // pearl2.classList.remove('hidden');
-        // pearl3.classList.remove('hidden');
+        playAgainButton.classList.remove('hidden');
     }
-    if (userGuess === 'shell1') {
+    if (userGuess === 'shell1' && flip === pearl1) {
         shell1.classList.add('reveal');
     }
-
-    if (userGuess === 'shell2') {
+    if (userGuess === 'shell1' && flip === pearl2) {
+        shell1.classList.add('reveal');
         shell2.classList.add('reveal');
     }
-
-    if (userGuess === 'shell3') {
+    if (userGuess === 'shell1' && flip === pearl3) {
+        shell1.classList.add('reveal');
         shell3.classList.add('reveal');
     }
-}
 
-function revealPearl() {
-    getRandomItem();
+    if ((userGuess === 'shell2') & (flip === pearl1)) {
+        shell2.classList.add('reveal');
+        shell1.classList.add('reveal');
+    }
+    if ((userGuess === 'shell2') & (flip === pearl2)) {
+        shell2.classList.add('reveal');
+    }
+    if ((userGuess === 'shell2') & (flip === pearl3)) {
+        shell2.classList.add('reveal');
+        shell3.classList.add('reveal');
+    }
+
+    if ((userGuess === 'shell3') & (flip === pearl3)) {
+        shell3.classList.add('reveal');
+    }
+    if ((userGuess === 'shell3') & (flip === pearl1)) {
+        shell3.classList.add('reveal');
+        shell1.classList.add('reveal');
+    }
+    if ((userGuess === 'shell3') & (flip === pearl2)) {
+        shell3.classList.add('reveal');
+        shell2.classList.add('reveal');
+    }
 }
 
 // event listeners
@@ -135,3 +153,4 @@ playAgainButton.addEventListener('click', () => {
     gameState = 'find';
     loadPage();
 });
+loadPage();
