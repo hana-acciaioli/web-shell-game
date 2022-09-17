@@ -26,7 +26,6 @@ const totalDisplay = document.getElementById('total-display');
 let gameState = 'find'; //'find', 'results'
 let userGuess = ''; // shell-1, shell2, shell3
 let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
-// let result = ''; //'win' or 'lose'
 
 let wins = 0;
 let losses = 0;
@@ -37,8 +36,6 @@ const underShell = [pearl1, pearl2, pearl3];
 /* Actions */
 function loadPage() {
     displayShells();
-    // displayResults();
-    // displayScoreboard();
 }
 
 function revealPearl() {
@@ -169,15 +166,6 @@ guess3.addEventListener('click', () => {
     displayResults();
     displayScoreboard();
 });
-
-// function displayResults() {
-//     if (gameState === 'results') {
-//         resultsSection.classList.remove('hidden');
-
-//     } else {
-//         resultsSection.classList.add('hidden');
-//     }
-// }
 
 function displayScoreboard() {
     winsDisplay.textContent = wins;
