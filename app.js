@@ -19,11 +19,14 @@ const display3 = document.getElementById('display-3');
 
 // const resultsSection = document.getElementById('results');
 const playAgainButton = document.getElementById('play-again-button');
+const winsDisplay = document.getElementById('wins-display');
+const lossesDisplay = document.getElementById('losses-display');
+const totalDisplay = document.getElementById('total-display');
 /* State */
 let gameState = 'find'; //'find', 'results'
 let userGuess = ''; // shell-1, shell2, shell3
 let flip = ''; //'shell-1','shell-2','shell-3' //or should it be 'pearl1','pearl2','pearl3'?
-let result = ''; //'win' or 'lose'
+// let result = ''; //'win' or 'lose'
 
 let wins = 0;
 let losses = 0;
@@ -42,13 +45,6 @@ function revealPearl() {
     gameState = 'results';
     flip = getRandomItem(underShell);
     flip.classList.remove('hidden');
-    if (userGuess === flip) {
-        result = 'win';
-        wins++;
-    } else {
-        result = 'lose';
-        losses++;
-    }
     loadPage();
 }
 
@@ -85,54 +81,63 @@ function displayResults() {
         shell1.classList.add('reveal');
         display1.classList.remove('hidden');
         display1.textContent = 'You did it!';
+        wins++;
     }
     if (userGuess === 'shell1' && flip === pearl2) {
         shell1.classList.add('reveal');
         shell2.classList.add('reveal');
         display1.classList.remove('hidden');
-        display1.textContent = 'Not here!';
+        display1.textContent = 'Not there!';
+        losses++;
     }
     if (userGuess === 'shell1' && flip === pearl3) {
         shell1.classList.add('reveal');
         shell3.classList.add('reveal');
         display1.classList.remove('hidden');
-        display1.textContent = 'Not here!';
+        display1.textContent = 'Not there!';
+        losses++;
     }
 
     if ((userGuess === 'shell2') & (flip === pearl1)) {
         shell2.classList.add('reveal');
         shell1.classList.add('reveal');
         display2.classList.remove('hidden');
-        display2.textContent = 'Not here!';
+        display2.textContent = 'Not there!';
+        losses++;
     }
     if ((userGuess === 'shell2') & (flip === pearl2)) {
         shell2.classList.add('reveal');
         display2.classList.remove('hidden');
         display2.textContent = 'You did it!';
+        wins++;
     }
     if ((userGuess === 'shell2') & (flip === pearl3)) {
         shell2.classList.add('reveal');
         shell3.classList.add('reveal');
         display2.classList.remove('hidden');
-        display2.textContent = 'Not here!';
+        display2.textContent = 'Not there!';
+        losses++;
     }
 
     if ((userGuess === 'shell3') & (flip === pearl3)) {
         shell3.classList.add('reveal');
         display3.classList.remove('hidden');
         display3.textContent = 'You found it!';
+        wins++;
     }
     if ((userGuess === 'shell3') & (flip === pearl1)) {
         shell3.classList.add('reveal');
         shell1.classList.add('reveal');
         display3.classList.remove('hidden');
-        display3.textContent = 'Not here!';
+        display3.textContent = 'Not there!';
+        losses++;
     }
     if ((userGuess === 'shell3') & (flip === pearl2)) {
         shell3.classList.add('reveal');
         shell2.classList.add('reveal');
         display3.classList.remove('hidden');
-        display3.textContent = 'Not here!';
+        display3.textContent = 'Not there!';
+        losses++;
     }
 }
 
@@ -144,6 +149,7 @@ guess1.addEventListener('click', () => {
     displayShells();
     revealPearl();
     displayResults();
+    displayScoreboard();
 });
 
 guess2.addEventListener('click', () => {
@@ -152,6 +158,7 @@ guess2.addEventListener('click', () => {
     displayShells();
     revealPearl();
     displayResults();
+    displayScoreboard();
 });
 
 guess3.addEventListener('click', () => {
@@ -160,6 +167,7 @@ guess3.addEventListener('click', () => {
     displayShells();
     revealPearl();
     displayResults();
+    displayScoreboard();
 });
 
 // function displayResults() {
@@ -170,6 +178,12 @@ guess3.addEventListener('click', () => {
 //         resultsSection.classList.add('hidden');
 //     }
 // }
+
+function displayScoreboard() {
+    winsDisplay.textContent = wins;
+    lossesDisplay.textContent = losses;
+    totalDisplay.textContent = wins + losses;
+}
 
 playAgainButton.addEventListener('click', () => {
     gameState = 'find';
